@@ -71,9 +71,18 @@ footer span{color:var(--gold);opacity:.5}
 .modal-note{font-size:.72rem;color:#4a6070;margin-top:20px;letter-spacing:.04em}
 .modal-close-btn{position:absolute;top:14px;right:16px;background:none;border:none;color:#4a6070;font-size:1.3rem;cursor:pointer;line-height:1;transition:color .2s}
 .modal-close-btn:hover{color:#8fa3ba}
+
+/* BETA BANNER */
+.beta-bar{width:100%;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.07);text-align:center;padding:7px 16px;font-family:"Raleway",sans-serif;font-size:.62rem;letter-spacing:.22em;color:rgba(255,255,255,.3);text-transform:uppercase}
+.beta-bar span{color:#f7970b;opacity:.7}
+
+/* LOCK OVERLAY for coming soon cards */
+.card-lock{position:absolute;inset:0;background:rgba(8,16,26,.72);z-index:5;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.card-lock svg{width:28px;height:28px;fill:rgba(255,255,255,.18)}
 </style>
 </head>
 <body>
+<div class="beta-bar"><span>Beta</span> &nbsp;·&nbsp; Watch Us Build</div>
 <header>
   <svg class="cross-icon" viewBox="0 0 38 38" fill="none"><rect x="16" y="2" width="6" height="34" rx="1" fill="#c9a84c"/><rect x="2" y="12" width="34" height="6" rx="1" fill="#c9a84c"/></svg>
   <h1>Sacred <span>Prayers</span></h1>
@@ -106,9 +115,9 @@ footer span{color:var(--gold);opacity:.5}
 <footer><span>&#10022;</span> &nbsp; Lift your voice &nbsp; <span>&#10022;</span></footer>
 <script>
 const prayers=[
-  {num:"I",   title:"Victory Prayer Request, 3/2/2026", desc:"Began this day surrendered to the Power of The Lord — a prayer of thanksgiving, expectation, and trust as even in war, His mercies endureth forever.",              img:"https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=600&q=80",audio:"https://drive.google.com/uc?export=download&id=1eC4djQzeSgnHmbrF1222kmdL-LUFq6bb"},
-  {num:"II",  title:"Prayer of Healing, 3 Day Declaration of War, Finances", desc:"The Word of God overrules all and provokes the heavens to moves within, upon, and on behalf of men. Speak the Word ONLY and be healed and made whole.", img:"https://images.unsplash.com/photo-1528716321680-815a8cdb8cbe?w=600&q=80",audio:"https://drive.google.com/uc?export=download&id=1URGvK8RYgeduymsN94lD1dME-iVpkFRd"},
-  {num:"III", title:"Prayer of Repentance",   desc:"A humble turning of the heart — confessing what was done in darkness, and receiving the grace that covers all sin.",                      img:"https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80",audio:"YOUR_AUDIO_URL_3.mp3"},
+  {num:"I",   title:"Victory Prayer Request, 3/2/2026", desc:"Began this day surrendered to the Power of The Lord — a prayer of thanksgiving, expectation, and trust as even in war, His mercies endureth forever.",              img:"https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Men%20Ought%20Always%20Pray%20(1).m4a"},
+  {num:"II",  title:"3 Day Declaration of War, Finances, 1/1/2026", desc:"The Word of God overrules all and provokes the heavens to moves within, upon, and on behalf of men. Speak the Word ONLY and be healed and made whole.", img:"https://images.unsplash.com/photo-1528716321680-815a8cdb8cbe?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Declare%20this%20over%20all%20for%203%20days.m4a"},
+  {num:"III", title:"Prayer in Preparation for Fast", desc:"Jesus said some things require total surrender of body and the soul unto His Spirit. This is where we literally break our bodies to cleave with and align to The Word itself.",                      img:"https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Day%20One%20Genesis%201%20Fasting%20and%20Prayer.m4a"},
   {num:"IV",  title:"Prayer for Guidance",    desc:"When the path is unclear, this prayer invites the Holy Spirit to illuminate every step, every decision, every calling.",                  img:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80",audio:"YOUR_AUDIO_URL_4.mp3"},
   {num:"V",   title:"Prayer of Intercession", desc:"Standing in the gap for others — lifting family, community, and nations before the throne of grace with steadfast faith.",                img:"https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?w=600&q=80",audio:"YOUR_AUDIO_URL_5.mp3"},
   {num:"VI",  title:"Evening Prayer",         desc:"As the day fades, we lay down anxieties and rest in His presence — a closing prayer of peace and deep surrender.",                        img:"https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=600&q=80",audio:"YOUR_AUDIO_URL_6.mp3"},
@@ -126,13 +135,17 @@ function fmt(s){if(isNaN(s))return"0:00";return Math.floor(s/60)+":"+(Math.floor
 function buildCard(p){
   const card=document.createElement("article");
   card.className="prayer-card";
-  card.innerHTML='<div class="card-image-wrap"><img class="card-image" src="'+p.img+'" alt="'+p.title+'" loading="lazy"/><span class="card-num">'+p.num+'</span></div><div class="card-body"><h2>'+p.title+'</h2><p>'+p.desc+'</p><div class="audio-row"><button class="play-btn" aria-label="Play '+p.title+'">'+playSVG+'</button><div class="progress-wrap"><div class="progress-bar-bg"><div class="progress-bar-fill"></div></div><div class="time-row"><span class="time-cur">0:00</span><span class="time-dur">--:--</span></div></div></div></div>';
+  const isLocked = p.audio.startsWith("YOUR_AUDIO");
+  const lockHTML = isLocked ? '<div class="card-lock"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div>' : "";
+  card.innerHTML=lockHTML+'<div class="card-image-wrap"><img class="card-image" src="'+p.img+'" alt="'+p.title+'" loading="lazy"/><span class="card-num">'+p.num+'</span></div><div class="card-body"><h2>'+p.title+'</h2><p>'+p.desc+'</p><div class="audio-row"><button class="play-btn" aria-label="Play '+p.title+'">'+playSVG+'</button><div class="progress-wrap"><div class="progress-bar-bg"><div class="progress-bar-fill"></div></div><div class="time-row"><span class="time-cur">0:00</span><span class="time-dur">--:--</span></div></div></div></div>';
   const btn=card.querySelector(".play-btn"),fill=card.querySelector(".progress-bar-fill"),barBg=card.querySelector(".progress-bar-bg"),tc=card.querySelector(".time-cur"),td=card.querySelector(".time-dur"),audio=new Audio(p.audio);
   audio.addEventListener("loadedmetadata",function(){td.textContent=fmt(audio.duration)});
   audio.addEventListener("timeupdate",function(){if(!audio.duration)return;fill.style.width=(audio.currentTime/audio.duration*100)+"%";tc.textContent=fmt(audio.currentTime)});
   audio.addEventListener("ended",function(){btn.innerHTML=playSVG;btn.classList.remove("playing");fill.style.width="0%";tc.textContent="0:00";curAudio=null;curBtn=null});
   barBg.addEventListener("click",function(e){if(!audio.duration)return;var r=barBg.getBoundingClientRect();audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration});
+  if(isLocked){btn.style.opacity="0.3";btn.style.cursor="default";}
   btn.addEventListener("click",function(){
+    if(isLocked) return;
     if(curAudio&&curAudio!==audio){curAudio.pause();curAudio.currentTime=0;curBtn.innerHTML=playSVG;curBtn.classList.remove("playing");curBtn.closest(".audio-row").querySelector(".progress-bar-fill").style.width="0%";curBtn.closest(".audio-row").querySelector(".time-cur").textContent="0:00"}
     if(audio.paused){audio.play().catch(function(){td.textContent="No file"});btn.innerHTML=pauseSVG;btn.classList.add("playing");curAudio=audio;curBtn=btn}
     else{audio.pause();btn.innerHTML=playSVG;btn.classList.remove("playing");curAudio=null;curBtn=null}
