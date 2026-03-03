@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Sacred Prayers</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0d1b2a;--card:#162237;--border:#1e3050;--gold:#c9a84c;--gold2:#e8c97a;--ivory:#f0ead8;--muted:#8fa3ba}
+body{background:var(--navy);color:var(--ivory);font-family:'Raleway',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden}
+header{position:relative;text-align:center;padding:90px 24px 70px;animation:fadeUp .6s ease both}
+header::before{content:'';position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(ellipse at center,rgba(201,168,76,.13) 0%,transparent 70%);pointer-events:none}
+.cross-icon{display:block;margin:0 auto 28px;width:38px;height:38px;opacity:.75}
+header h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,6vw,5rem);font-weight:300;letter-spacing:.18em;color:var(--ivory);text-transform:uppercase;line-height:1}
+header h1 span{color:var(--gold)}
+.tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1rem,2vw,1.3rem);color:var(--muted);margin-top:16px;letter-spacing:.06em}
+.divider{display:flex;align-items:center;justify-content:center;gap:14px;margin:32px auto 0;max-width:300px}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,var(--gold))}
+.divider::after{background:linear-gradient(to left,transparent,var(--gold))}
+.divider-gem{width:7px;height:7px;background:var(--gold);transform:rotate(45deg);flex-shrink:0}
+main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:20px 24px 80px;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:28px}
+.prayer-card{background:var(--card);border:1px solid var(--border);border-radius:4px;overflow:hidden;display:flex;flex-direction:column;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;position:relative;animation:fadeUp .5s ease both}
+.prayer-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+.prayer-card:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.5),0 0 0 1px rgba(201,168,76,.2);border-color:rgba(201,168,76,.3)}
+.card-image{width:100%;height:200px;object-fit:cover;display:block;filter:brightness(.72) saturate(.65);transition:filter .4s ease}
+.prayer-card:hover .card-image{filter:brightness(.85) saturate(.85)}
+.card-image-wrap{position:relative;overflow:hidden}
+.card-num{position:absolute;top:12px;left:14px;font-family:'Cormorant Garamond',serif;font-size:.75rem;letter-spacing:.2em;color:var(--gold);background:rgba(13,27,42,.75);padding:3px 9px;border:1px solid rgba(201,168,76,.3)}
+.card-body{padding:22px 22px 18px;flex:1;display:flex;flex-direction:column;position:relative;z-index:1}
+.card-body h2{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:400;color:var(--ivory);letter-spacing:.04em;line-height:1.3}
+.card-body p{font-size:.82rem;color:var(--muted);line-height:1.7;margin-top:8px;flex:1;letter-spacing:.02em}
+.audio-row{display:flex;align-items:center;gap:12px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
+.play-btn{flex-shrink:0;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--gold);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s ease,transform .15s ease}
+.play-btn:hover{background:rgba(201,168,76,.12);transform:scale(1.07)}
+.play-btn svg{width:16px;height:16px;fill:var(--gold);margin-left:3px}
+.play-btn.playing svg{margin-left:0}
+.progress-wrap{flex:1;display:flex;flex-direction:column;gap:5px}
+.progress-bar-bg{height:3px;background:var(--border);border-radius:2px;cursor:pointer;position:relative}
+.progress-bar-fill{height:100%;background:linear-gradient(to right,var(--gold),var(--gold2));border-radius:2px;width:0%;transition:width .1s linear;pointer-events:none}
+.time-row{display:flex;justify-content:space-between;font-size:.68rem;color:var(--muted);letter-spacing:.05em}
+footer{position:relative;z-index:1;text-align:center;padding:24px;font-size:.75rem;color:var(--border);letter-spacing:.1em;text-transform:uppercase;border-top:1px solid var(--border)}
+footer span{color:var(--gold);opacity:.5}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.prayer-card:nth-child(1){animation-delay:.05s}.prayer-card:nth-child(2){animation-delay:.10s}.prayer-card:nth-child(3){animation-delay:.15s}
+.prayer-card:nth-child(4){animation-delay:.20s}.prayer-card:nth-child(5){animation-delay:.25s}.prayer-card:nth-child(6){animation-delay:.30s}
+.prayer-card:nth-child(7){animation-delay:.35s}.prayer-card:nth-child(8){animation-delay:.40s}.prayer-card:nth-child(9){animation-delay:.45s}
+.prayer-card:nth-child(10){animation-delay:.50s}.prayer-card:nth-child(11){animation-delay:.55s}.prayer-card:nth-child(12){animation-delay:.60s}
+@media(max-width:600px){main{grid-template-columns:1fr}}
+
+/* ── DONATION BUTTON ── */
+.donate-btn{display:inline-flex;align-items:center;gap:9px;background:#f7970b;color:#fff;font-family:'Raleway',sans-serif;font-weight:500;font-size:.8rem;letter-spacing:.13em;text-transform:uppercase;border:none;padding:12px 28px;border-radius:2px;cursor:pointer;transition:all .2s ease;box-shadow:0 4px 18px rgba(247,151,11,.38);margin-top:28px}
+.donate-btn:hover{background:#e08809;transform:translateY(-2px);box-shadow:0 7px 24px rgba(247,151,11,.52)}
+.donate-btn svg{width:14px;height:14px;fill:#fff;flex-shrink:0}
+
+/* ── MODAL OVERLAY ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(5,12,22,.85);backdrop-filter:blur(6px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .3s ease}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal-box{background:#162237;border:1px solid rgba(201,168,76,.3);border-radius:6px;max-width:460px;width:100%;padding:40px 36px 32px;position:relative;transform:translateY(20px);transition:transform .3s ease;text-align:center}
+.modal-overlay.open .modal-box{transform:translateY(0)}
+.modal-cross{display:block;margin:0 auto 18px;width:28px;height:28px;opacity:.6}
+.modal-box h2{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;color:#f0ead8;letter-spacing:.06em;line-height:1.3}
+.modal-box p{font-size:.85rem;color:#8fa3ba;line-height:1.8;margin-top:14px;letter-spacing:.02em}
+.modal-divider{display:flex;align-items:center;justify-content:center;gap:10px;margin:22px auto;max-width:200px}
+.modal-divider::before,.modal-divider::after{content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(201,168,76,.4))}
+.modal-divider::after{background:linear-gradient(to left,transparent,rgba(201,168,76,.4))}
+.modal-divider-gem{width:5px;height:5px;background:#c9a84c;transform:rotate(45deg);flex-shrink:0}
+.donation-options{display:flex;gap:12px;justify-content:center;margin-top:4px}
+.donation-opt{flex:1;max-width:120px;padding:14px 8px;border:1.5px solid rgba(201,168,76,.35);background:transparent;color:#f0ead8;font-family:'Cormorant Garamond',serif;font-size:1.2rem;border-radius:3px;cursor:pointer;transition:all .2s ease;letter-spacing:.04em}
+.donation-opt:hover{background:rgba(201,168,76,.1);border-color:var(--gold);transform:translateY(-2px)}
+.modal-note{font-size:.72rem;color:#4a6070;margin-top:20px;letter-spacing:.04em}
+.modal-close-btn{position:absolute;top:14px;right:16px;background:none;border:none;color:#4a6070;font-size:1.3rem;cursor:pointer;line-height:1;transition:color .2s}
+.modal-close-btn:hover{color:#8fa3ba}
+
+/* BETA BANNER */
+.beta-bar{width:100%;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.07);text-align:center;padding:7px 16px;font-family:"Raleway",sans-serif;font-size:.62rem;letter-spacing:.22em;color:rgba(255,255,255,.3);text-transform:uppercase}
+.beta-bar span{color:#f7970b;opacity:.7}
+
+/* LOCK OVERLAY for coming soon cards */
+.card-lock{position:absolute;inset:0;background:rgba(8,16,26,.72);z-index:5;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.card-lock svg{width:28px;height:28px;fill:rgba(255,255,255,.18)}
+</style>
+</head>
+<body>
+<div class="beta-bar"><span>Beta</span> &nbsp;·&nbsp; Watch Us Build</div>
+<header>
+  <svg class="cross-icon" viewBox="0 0 38 38" fill="none"><rect x="16" y="2" width="6" height="34" rx="1" fill="#c9a84c"/><rect x="2" y="12" width="34" height="6" rx="1" fill="#c9a84c"/></svg>
+  <h1>Sacred <span>Prayers</span></h1>
+  <p class="tagline">A collection of prayers to draw you closer to the Father</p>
+  <div class="divider"><div class="divider-gem"></div></div>
+  <button class="donate-btn" onclick="document.getElementById('donateModal').classList.add('open')">
+    <svg viewBox="0 0 14 14"><path d="M7 12.5C4 9.7 1 7.2 1 5a3 3 0 015-2.2A3 3 0 0113 5c0 2.2-3 4.7-6 7.5z"/></svg>
+    Support This Ministry
+  </button>
+</header>
+
+<!-- DONATION MODAL -->
+<div class="modal-overlay" id="donateModal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-box">
+    <button class="modal-close-btn" onclick="document.getElementById('donateModal').classList.remove('open')">&times;</button>
+    <svg class="modal-cross" viewBox="0 0 28 28" fill="none"><rect x="11" y="1" width="5" height="26" rx="1" fill="#c9a84c"/><rect x="1" y="9" width="26" height="5" rx="1" fill="#c9a84c"/></svg>
+    <h2>Support This Ministry</h2>
+    <p>Your support of this page helps us keep this site running, current and to provoke the move of God all over the world and in the hearts of His People.</p>
+    <div class="modal-divider"><div class="modal-divider-gem"></div></div>
+    <div class="donation-options">
+      <button class="donation-opt" onclick="window.open('https://www.paypal.com/paypalme/toniadeniseweiters/25','_blank')">$25</button>
+      <button class="donation-opt" onclick="window.open('https://www.paypal.com/paypalme/toniadeniseweiters/50','_blank')">$50</button>
+      <button class="donation-opt" onclick="window.open('https://www.paypal.com/paypalme/toniadeniseweiters/100','_blank')">$100</button>
+    </div>
+    <p class="modal-note">All donations are non-refundable. Payments processed securely via PayPal.</p>
+  </div>
+</div>
+
+<main id="gallery"></main>
+<footer><span>&#10022;</span> &nbsp; Lift your voice &nbsp; <span>&#10022;</span></footer>
+<script>
+const prayers=[
+  {num:"I",   title:"Victory Prayer Request, 3/2/2026", desc:"Began this day surrendered to the Power of The Lord — a prayer of thanksgiving, expectation, and trust as even in war, His mercies endureth forever.",              img:"https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Men%20Ought%20Always%20Pray%20(1).m4a"},
+  {num:"II",  title:"3 Day Declaration of War, Finances, 1/1/2026", desc:"The Word of God overrules all and provokes the heavens to moves within, upon, and on behalf of men. Speak the Word ONLY and be healed and made whole.", img:"https://images.unsplash.com/photo-1528716321680-815a8cdb8cbe?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Declare%20this%20over%20all%20for%203%20days.m4a"},
+  {num:"III", title:"Prayer in Preparation for Fast", desc:"Jesus said some things require total surrender of body and the soul unto His Spirit. This is where we literally break our bodies to cleave with and align to The Word itself.",                      img:"https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Day%20One%20Genesis%201%20Fasting%20and%20Prayer.m4a"},
+  {num:"IV",  title:"Prayer for Guidance",    desc:"When the path is unclear, this prayer invites the Holy Spirit to illuminate every step, every decision, every calling.",                  img:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80",audio:"YOUR_AUDIO_URL_4.mp3"},
+  {num:"V",   title:"Prayer of Intercession", desc:"Standing in the gap for others — lifting family, community, and nations before the throne of grace with steadfast faith.",                img:"https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?w=600&q=80",audio:"YOUR_AUDIO_URL_5.mp3"},
+  {num:"VI",  title:"Evening Prayer",         desc:"As the day fades, we lay down anxieties and rest in His presence — a closing prayer of peace and deep surrender.",                        img:"https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=600&q=80",audio:"YOUR_AUDIO_URL_6.mp3"},
+  {num:"VII", title:"Prayer for Strength",    desc:"In moments of exhaustion, this prayer calls on the strength that comes not from flesh, but from the eternal source of all power.",        img:"https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=600&q=80",audio:"YOUR_AUDIO_URL_7.mp3"},
+  {num:"VIII",title:"Prayer for the Family",  desc:"Covering every household under His wing — a prayer for protection, unity, love, and generational blessing over our homes.",               img:"https://images.unsplash.com/photo-1511895426328-dc8714191011?w=600&q=80",audio:"YOUR_AUDIO_URL_8.mp3"},
+  {num:"IX",  title:"Prayer of Gratitude",    desc:"An overflowing heart that cannot help but praise — returning thanks for grace received, blessings seen and unseen.",                     img:"https://images.unsplash.com/photo-1490730141103-6cac27aaab94?w=600&q=80",audio:"YOUR_AUDIO_URL_9.mp3"},
+  {num:"X",   title:"Prayer for the Nations", desc:"Lifting our eyes beyond the personal — interceding for leaders, the poor, the persecuted, and every people on the earth.",               img:"https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80",audio:"YOUR_AUDIO_URL_10.mp3"},
+  {num:"XI",  title:"Prayer of Consecration", desc:"A total offering of self — presenting body, time, gifts, and will as a living sacrifice holy and acceptable unto God.",                  img:"https://images.unsplash.com/photo-1548516173-3cab2f0b5a0e?w=600&q=80",audio:"YOUR_AUDIO_URL_11.mp3"},
+  {num:"XII", title:"Prayer of Faith",        desc:"Declaring what the eye has not yet seen, trusting in the promises of God — a bold prayer that moves mountains.",                         img:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80",audio:"YOUR_AUDIO_URL_12.mp3"}
+];
+const playSVG='<svg viewBox="0 0 16 16"><polygon points="3,1 15,8 3,15" fill="#c9a84c"/></svg>';
+const pauseSVG='<svg viewBox="0 0 16 16"><rect x="2" y="1" width="4" height="14" rx="1" fill="#c9a84c"/><rect x="10" y="1" width="4" height="14" rx="1" fill="#c9a84c"/></svg>';
+let curAudio=null,curBtn=null;
+function fmt(s){if(isNaN(s))return"0:00";return Math.floor(s/60)+":"+(Math.floor(s%60)).toString().padStart(2,"0")}
+function buildCard(p){
+  const card=document.createElement("article");
+  card.className="prayer-card";
+  const isLocked = p.audio.startsWith("YOUR_AUDIO");
+  const lockHTML = isLocked ? '<div class="card-lock"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div>' : "";
+  card.innerHTML=lockHTML+'<div class="card-image-wrap"><img class="card-image" src="'+p.img+'" alt="'+p.title+'" loading="lazy"/><span class="card-num">'+p.num+'</span></div><div class="card-body"><h2>'+p.title+'</h2><p>'+p.desc+'</p><div class="audio-row"><button class="play-btn" aria-label="Play '+p.title+'">'+playSVG+'</button><div class="progress-wrap"><div class="progress-bar-bg"><div class="progress-bar-fill"></div></div><div class="time-row"><span class="time-cur">0:00</span><span class="time-dur">--:--</span></div></div></div></div>';
+  const btn=card.querySelector(".play-btn"),fill=card.querySelector(".progress-bar-fill"),barBg=card.querySelector(".progress-bar-bg"),tc=card.querySelector(".time-cur"),td=card.querySelector(".time-dur"),audio=new Audio(p.audio);
+  audio.addEventListener("loadedmetadata",function(){td.textContent=fmt(audio.duration)});
+  audio.addEventListener("timeupdate",function(){if(!audio.duration)return;fill.style.width=(audio.currentTime/audio.duration*100)+"%";tc.textContent=fmt(audio.currentTime)});
+  audio.addEventListener("ended",function(){btn.innerHTML=playSVG;btn.classList.remove("playing");fill.style.width="0%";tc.textContent="0:00";curAudio=null;curBtn=null});
+  barBg.addEventListener("click",function(e){if(!audio.duration)return;var r=barBg.getBoundingClientRect();audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration});
+  if(isLocked){btn.style.opacity="0.3";btn.style.cursor="default";}
+  btn.addEventListener("click",function(){
+    if(isLocked) return;
+    if(curAudio&&curAudio!==audio){curAudio.pause();curAudio.currentTime=0;curBtn.innerHTML=playSVG;curBtn.classList.remove("playing");curBtn.closest(".audio-row").querySelector(".progress-bar-fill").style.width="0%";curBtn.closest(".audio-row").querySelector(".time-cur").textContent="0:00"}
+    if(audio.paused){audio.play().catch(function(){td.textContent="No file"});btn.innerHTML=pauseSVG;btn.classList.add("playing");curAudio=audio;curBtn=btn}
+    else{audio.pause();btn.innerHTML=playSVG;btn.classList.remove("playing");curAudio=null;curBtn=null}
+  });
+  return card;
+}
+var gallery=document.getElementById("gallery");
+prayers.forEach(function(p){gallery.appendChild(buildCard(p))});
+</script>
+</body>
+</html>
