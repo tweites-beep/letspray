@@ -120,6 +120,75 @@ footer span{color:var(--gold);opacity:.5}
 /* LOCK OVERLAY for coming soon cards */
 .card-lock{position:absolute;inset:0;background:rgba(8,16,26,.72);z-index:5;display:flex;align-items:center;justify-content:center;pointer-events:none}
 .card-lock svg{width:28px;height:28px;fill:rgba(255,255,255,.18)}
+
+/* ── PLAYLIST PLAYER ── */
+.playlist-bar{
+  position:fixed;bottom:0;left:0;right:0;z-index:2000;
+  background:rgba(6,10,18,.97);
+  backdrop-filter:blur(28px);
+  border-top:1px solid rgba(201,168,76,.18);
+  padding:0 24px;
+  height:78px;
+  display:flex;align-items:center;gap:18px;
+  box-shadow:0 -8px 40px rgba(0,0,0,.55);
+}
+.pl-art{
+  width:46px;height:46px;border-radius:4px;object-fit:cover;
+  flex-shrink:0;border:1px solid rgba(201,168,76,.2);
+  background:rgba(201,168,76,.08);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.75rem;color:rgba(201,168,76,.4);
+  overflow:hidden;
+}
+.pl-art img{width:100%;height:100%;object-fit:cover;display:block;}
+.pl-info{flex:1;min-width:0;}
+.pl-num{font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(201,168,76,.55);margin-bottom:2px;}
+.pl-title{font-family:'Cormorant Garamond',serif;font-size:.95rem;
+  color:#f0ead8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  letter-spacing:.03em;}
+.pl-scripture{font-size:.58rem;color:rgba(180,172,200,.45);
+  letter-spacing:.06em;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pl-controls{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.pl-btn{background:none;border:none;cursor:pointer;
+  color:rgba(180,172,200,.6);transition:all .2s;padding:5px;border-radius:50%;}
+.pl-btn:hover{color:#f0ead8;background:rgba(255,255,255,.06);}
+.pl-btn svg{width:18px;height:18px;fill:currentColor;display:block;}
+.pl-play{width:42px;height:42px;border-radius:50%;
+  background:linear-gradient(135deg,rgba(201,168,76,.9),rgba(232,201,122,.7));
+  border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .22s;flex-shrink:0;}
+.pl-play:hover{transform:scale(1.07);box-shadow:0 0 18px rgba(201,168,76,.35);}
+.pl-play svg{width:16px;height:16px;fill:#0a0d14;display:block;margin-left:2px;}
+.pl-play.playing svg.ic-play{display:none;}
+.pl-play.playing svg.ic-pause{display:block;}
+.pl-play svg.ic-pause{display:none;}
+.pl-progress-wrap{flex:1;max-width:280px;cursor:pointer;}
+.pl-progress-bg{height:3px;background:rgba(255,255,255,.08);border-radius:2px;position:relative;}
+.pl-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),#e8c97a);
+  border-radius:2px;width:0%;transition:width .3s linear;}
+.pl-times{display:flex;justify-content:space-between;
+  font-size:.52rem;color:rgba(180,172,200,.4);margin-top:3px;letter-spacing:.04em;}
+.pl-loop{font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(201,168,76,.4);padding:3px 8px;border:1px solid rgba(201,168,76,.15);
+  border-radius:2px;background:none;cursor:pointer;transition:all .2s;flex-shrink:0;}
+.pl-loop.on{color:rgba(201,168,76,.9);border-color:rgba(201,168,76,.4);
+  background:rgba(201,168,76,.07);}
+.pl-loop:hover{color:rgba(201,168,76,.7);}
+.pl-vol{display:flex;align-items:center;gap:6px;flex-shrink:0;}
+.pl-vol svg{width:14px;height:14px;fill:rgba(180,172,200,.4);flex-shrink:0;}
+.pl-vol input[type=range]{
+  -webkit-appearance:none;width:70px;height:3px;
+  background:rgba(255,255,255,.1);border-radius:2px;outline:none;cursor:pointer;}
+.pl-vol input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:11px;height:11px;border-radius:50%;
+  background:var(--gold);cursor:pointer;}
+body{padding-bottom:88px;}
+@media(max-width:600px){
+  .pl-progress-wrap{display:none;}
+  .pl-vol{display:none;}
+  .pl-scripture{display:none;}
+}
 </style>
 </head>
 <body>
@@ -201,7 +270,7 @@ footer span{color:var(--gold);opacity:.5}
 <main id="gallery"></main>
 <footer><span>&#10022;</span> &nbsp; Lift your voice &nbsp; <span>&#10022;</span></footer>
 <script>
-const prayers=[
+const prayers=window.PRAYERS=[
   {num:"I",   title:"Victory Prayer Request", desc:"Began this day surrendered to the Power of The Lord — a prayer of thanksgiving, expectation, and trust as even in war, His mercies endureth forever. — Lamentations 3:22–23",              img:"https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Men%20Ought%20Always%20Pray%20(1).m4a"},
   {num:"II",  title:"3 Day Declaration of War — Finances", desc:"The Word of God overrules all and provokes the heavens to moves within, upon, and on behalf of men. Speak the Word ONLY and be healed and made whole. — Isaiah 55:11", img:"https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Declare%20this%20over%20all%20for%203%20days.m4a"},
   {num:"III", title:"Prayer in Preparation for Fast", desc:"Jesus said some things require total surrender of body and the soul unto His Spirit. This is where we literally break our bodies to cleave with and align to The Word itself. — Matthew 17:21",                      img:"https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Day%20One%20Genesis%201%20Fasting%20and%20Prayer.m4a"},
@@ -271,5 +340,126 @@ function resetForm(){
 
 prayers.forEach(function(p){gallery.appendChild(buildCard(p))});
 </script>
+
+<!-- ── PRAYER WALL PLAYLIST PLAYER ── -->
+<div class="playlist-bar" id="playlistBar">
+  <div class="pl-art" id="plArt">
+    <img id="plArtImg" src="" alt=""/>
+  </div>
+  <div class="pl-info">
+    <div class="pl-num" id="plNum">THE PRAYER WALL</div>
+    <div class="pl-title" id="plTitle">Press play to begin the loop</div>
+    <div class="pl-scripture" id="plScripture">All prayers · continuous loop</div>
+  </div>
+  <div class="pl-controls">
+    <button class="pl-btn" onclick="plPrev()" title="Previous">
+      <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+    </button>
+    <button class="pl-play" id="plPlayBtn" onclick="plToggle()">
+      <svg class="ic-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="ic-pause" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </button>
+    <button class="pl-btn" onclick="plNext()" title="Next">
+      <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zm2-8.14L11.03 12 8 14.14V9.86zM16 6h2v12h-2z"/></svg>
+    </button>
+  </div>
+  <div class="pl-progress-wrap" onclick="plSeek(event)">
+    <div class="pl-progress-bg">
+      <div class="pl-progress-fill" id="plFill"></div>
+    </div>
+    <div class="pl-times">
+      <span id="plCur">0:00</span>
+      <span id="plDur">--:--</span>
+    </div>
+  </div>
+  <button class="pl-loop on" id="plLoopBtn" onclick="plToggleLoop()">⟳ Loop</button>
+  <div class="pl-vol">
+    <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+    <input type="range" min="0" max="1" step="0.05" value="1" oninput="plVol(this.value)"/>
+  </div>
+</div>
+
+<audio id="plAudio"></audio>
+
+<script>
+(function(){
+  // Build playlist from only unlocked prayers
+  var allPrayers=window.PRAYERS||[];
+  var playlist=allPrayers.filter(function(p){return p.audio&&!p.audio.startsWith('YOUR_');});
+
+  var idx=0;
+  var looping=true;
+  var audio=document.getElementById('plAudio');
+  var playBtn=document.getElementById('plPlayBtn');
+
+  function fmt(s){
+    if(isNaN(s))return '--:--';
+    var m=Math.floor(s/60),sec=Math.floor(s%60);
+    return m+':'+(sec<10?'0':'')+sec;
+  }
+
+  function load(i,autoplay){
+    if(!playlist.length)return;
+    idx=((i%playlist.length)+playlist.length)%playlist.length;
+    var p=playlist[idx];
+    audio.src=p.audio;
+    document.getElementById('plNum').textContent='Prayer '+p.num+' of '+playlist.length+' unlocked';
+    document.getElementById('plTitle').textContent=p.title;
+    // Extract scripture from desc (after last —)
+    var parts=p.desc.split('—');
+    var scripture=parts.length>1?parts[parts.length-1].trim():'';
+    document.getElementById('plScripture').textContent=scripture||'The Prayer Wall';
+    document.getElementById('plArtImg').src=p.img;
+    document.getElementById('plFill').style.width='0%';
+    document.getElementById('plCur').textContent='0:00';
+    document.getElementById('plDur').textContent='--:--';
+    if(autoplay){audio.play().then(function(){playBtn.classList.add('playing');}).catch(function(){});}
+  }
+
+  audio.addEventListener('timeupdate',function(){
+    if(!audio.duration)return;
+    var pct=(audio.currentTime/audio.duration)*100;
+    document.getElementById('plFill').style.width=pct+'%';
+    document.getElementById('plCur').textContent=fmt(audio.currentTime);
+    document.getElementById('plDur').textContent=fmt(audio.duration);
+  });
+
+  audio.addEventListener('ended',function(){
+    if(looping){load(idx+1,true);}
+    else{playBtn.classList.remove('playing');}
+  });
+
+  window.plToggle=function(){
+    if(!playlist.length){alert('No prayers loaded yet.');return;}
+    if(audio.paused){
+      if(!audio.src||audio.src===window.location.href){load(0,false);}
+      audio.play().then(function(){playBtn.classList.add('playing');}).catch(function(){});
+    }else{
+      audio.pause();playBtn.classList.remove('playing');
+    }
+  };
+  window.plNext=function(){load(idx+1,!audio.paused);};
+  window.plPrev=function(){
+    if(audio.currentTime>3){audio.currentTime=0;}
+    else{load(idx-1,!audio.paused);}
+  };
+  window.plSeek=function(e){
+    if(!audio.duration)return;
+    var r=e.currentTarget.getBoundingClientRect();
+    var pct=(e.clientX-r.left)/r.width;
+    audio.currentTime=pct*audio.duration;
+  };
+  window.plVol=function(v){audio.volume=parseFloat(v);};
+  window.plToggleLoop=function(){
+    looping=!looping;
+    document.getElementById('plLoopBtn').classList.toggle('on',looping);
+    document.getElementById('plLoopBtn').textContent=looping?'⟳ Loop':'⟳ Once';
+  };
+
+  // Load first track silently on page ready
+  if(playlist.length)load(0,false);
+})();
+</script>
+
 </body>
 </html>
