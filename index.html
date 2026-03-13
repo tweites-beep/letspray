@@ -4,6 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>The Prayer Wall</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='82' font-size='85' fill='%23c9a84c'>✦</text></svg>"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -14,6 +15,18 @@ header::before{content:'';position:absolute;top:-120px;left:50%;transform:transl
 .cross-icon{display:block;margin:0 auto 28px;width:38px;height:38px;opacity:.75}
 header h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,6vw,5rem);font-weight:300;letter-spacing:.18em;color:var(--ivory);text-transform:uppercase;line-height:1}
 header h1 span{color:var(--gold)}
+
+.wall-scripture{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:clamp(.78rem,1.4vw,.95rem);
+  color:rgba(180,172,200,.5);
+  max-width:680px;
+  margin:14px auto 0;
+  line-height:1.85;
+  letter-spacing:.04em;
+  text-align:center;
+}
 .tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1rem,2vw,1.3rem);color:var(--muted);margin-top:16px;letter-spacing:.06em}
 .divider{display:flex;align-items:center;justify-content:center;gap:14px;margin:32px auto 0;max-width:300px}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,var(--gold))}
@@ -114,8 +127,57 @@ footer span{color:var(--gold);opacity:.5}
 }
 
 /* BETA BANNER */
-.beta-bar{width:100%;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.07);text-align:center;padding:7px 16px;font-family:"Raleway",sans-serif;font-size:.62rem;letter-spacing:.22em;color:rgba(255,255,255,.3);text-transform:uppercase}
-.beta-bar span{color:#f7970b;opacity:.7}
+.ticker-wrap{
+  width:100%;overflow:hidden;
+  background:#3b4a3f;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  padding:9px 0;
+  position:relative;
+  z-index:100;
+}
+.ticker-wrap::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:60px;
+  background:linear-gradient(90deg,#3b4a3f,transparent);z-index:2;pointer-events:none;
+}
+.ticker-wrap::after{
+  content:'';position:absolute;right:0;top:0;bottom:0;width:60px;
+  background:linear-gradient(270deg,#3b4a3f,transparent);z-index:2;pointer-events:none;
+}
+.ticker-track{
+  display:inline-flex;white-space:nowrap;
+  animation:ticker 52s linear infinite;
+}
+.ticker-track:hover{animation-play-state:paused;}
+.ticker-item{
+  font-family:'Cormorant Garamond',serif;
+  font-size:.88rem;font-style:italic;
+  letter-spacing:.08em;
+  color:rgba(240,234,216,.75);
+  padding:0 48px;
+}
+.ticker-item strong{
+  font-style:normal;font-weight:400;
+  color:#c9d4b8;letter-spacing:.12em;
+  text-transform:uppercase;font-size:.72rem;font-family:'Raleway',sans-serif;
+}
+.ticker-item .dot{color:rgba(201,168,76,.5);margin:0 10px;font-style:normal;}
+.ticker-item .new-feat{
+  font-family:'Raleway',sans-serif;font-style:normal;
+  font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(255,255,255,.85);background:rgba(201,168,76,.22);
+  border:1px solid rgba(201,168,76,.4);
+  padding:2px 7px;border-radius:2px;margin:0 6px;vertical-align:middle;
+}
+.ticker-item .beta{
+  font-family:'Raleway',sans-serif;font-style:normal;
+  font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(201,168,76,.65);border:1px solid rgba(201,168,76,.25);
+  padding:2px 7px;border-radius:2px;margin:0 6px;vertical-align:middle;
+}
+@keyframes ticker{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-50%);}
+}
 
 /* LOCK OVERLAY for coming soon cards */
 .card-lock{position:absolute;inset:0;background:rgba(8,16,26,.72);z-index:5;display:flex;align-items:center;justify-content:center;pointer-events:none}
@@ -192,11 +254,47 @@ body{padding-bottom:88px;}
 </style>
 </head>
 <body>
-<div class="beta-bar"><span>Beta</span> &nbsp;·&nbsp; Watch Us Build</div>
+<div class="ticker-wrap">
+  <div class="ticker-track" id="tickerTrack">
+    <!-- First copy -->
+    <span class="ticker-item">
+      <strong>Here&rsquo;s What&rsquo;s New!</strong>
+      <span class="dot">✦</span>
+      Weekly Updates
+      <span class="dot">✦</span>
+      3 New Prayers:
+      <em>Governments</em><span class="dot">·</span><em>Regional Dominion</em><span class="dot">·</span><em>&ldquo;Unanswered&rdquo; Questions</em>
+      <span class="dot">✦</span>
+      <span class="new-feat">New Feature</span>
+      <em>Playlist</em>
+      <span class="dot">✦</span>
+      <span class="beta">Beta</span>
+      Watch Us Build
+      <span class="dot">✦</span>
+    </span>
+    <!-- Second copy for seamless loop -->
+    <span class="ticker-item">
+      <strong>Here&rsquo;s What&rsquo;s New!</strong>
+      <span class="dot">✦</span>
+      Weekly Updates
+      <span class="dot">✦</span>
+      3 New Prayers:
+      <em>Governments</em><span class="dot">·</span><em>Regional Dominion</em><span class="dot">·</span><em>&ldquo;Unanswered&rdquo; Questions</em>
+      <span class="dot">✦</span>
+      <span class="new-feat">New Feature</span>
+      <em>Playlist</em>
+      <span class="dot">✦</span>
+      <span class="beta">Beta</span>
+      Watch Us Build
+      <span class="dot">✦</span>
+    </span>
+  </div>
+</div>
 <header>
   <svg class="cross-icon" viewBox="0 0 38 38" fill="none"><rect x="16" y="2" width="6" height="34" rx="1" fill="#c9a84c"/><rect x="2" y="12" width="34" height="6" rx="1" fill="#c9a84c"/></svg>
   <h1>The Prayer <span>Wall</span></h1>
-  <p class="tagline">A collection of prayers to draw you closer to the Father</p>
+  <p class="tagline">A collection of prayers to draw you closer to the Father through Christ Jesus</p>
+  <p class="wall-scripture">&ldquo;And as ye go, preach, saying, The kingdom of heaven is at hand. Heal the sick, cleanse the lepers, raise the dead, cast out devils: freely ye have received, freely give.&rdquo; &nbsp;&mdash;&nbsp; Matt. 10:7&ndash;8</p>
   <div class="divider"><div class="divider-gem"></div></div>
   <button class="donate-btn" onclick="document.getElementById('donateModal').classList.add('open')">
     <svg viewBox="0 0 14 14"><path d="M7 12.5C4 9.7 1 7.2 1 5a3 3 0 015-2.2A3 3 0 0113 5c0 2.2-3 4.7-6 7.5z"/></svg>
