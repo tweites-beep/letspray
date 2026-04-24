@@ -302,7 +302,7 @@ body{padding-bottom:88px;}
       <span class="dot">✦</span>
       Weekly Updates
       <span class="dot">✦</span>
-      3 New Prayers: Prayer for Addictions, Prayer Against The Enemy, Prayer for The Mantle of Mentorship
+      3 New Prayers: Prayer for the Children of Offense, Prayer to Show Us Your Power, THE Benediction
       <span class="dot">✦</span>
       <span class="new-feat">New Feature</span>
       <em>Playlist</em>
@@ -317,7 +317,7 @@ body{padding-bottom:88px;}
       <span class="dot">✦</span>
       Weekly Updates
       <span class="dot">✦</span>
-3 New Prayers: Prayer for Addictions, Prayer Against The Enemy, Prayer for The Mantle of Mentorship      <span class="dot">✦</span>
+3 New Prayers: Prayer for the Children of Offense, Prayer to Show Us Your Power, THE Benediction      <span class="dot">✦</span>
       <span class="new-feat">New Feature</span>
       <em>Playlist</em>
       <span class="dot">✦</span>
@@ -426,7 +426,10 @@ const prayers=window.PRAYERS=[
   {num:"XVIII", title:"Prayer for The Offended", desc:"Offense hardens the heart, but truth restores it. This prayer releases healing, forgiveness, and freedom from hidden wounds. — Luke 17:1", img:"https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=600&q=80", audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Prayer%20for%20The%20Offended.m4a"},
   {num:"XIX", title:"Prayer for Addictions", desc:"For whom the Son sets free is free indeed. This prayer breaks the chains of addiction and invites the power of the Holy Spirit to bring total deliverance. — John 8:36", img:"https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Prayer%20for%20Addictions.m4a"},
   {num:"XX", title:"Prayer Against The Enemy", desc:"No weapon formed against you shall prosper. This prayer enforces the victory of the Cross over every scheme and assignment of the enemy. — Isaiah 54:17", img:"https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Prayer%20Against%20The%20Enemy.m4a"},
-  {num:"XXI", title:"Prayer for The Mantle of Mentorship", desc:"God is raising up spiritual fathers and mothers. This prayer is for the wisdom, patience, and grace to lead the next generation into their destiny. — 2 Timothy 2:2", img:"https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Prayer%20for%20The%20Mantle%20of%20Mentorship.m4a"}
+  {num:"XXI", title:"Prayer for The Mantle of Mentorship", desc:"God is raising up spiritual fathers and mothers. This prayer is for the wisdom, patience, and grace to lead the next generation into their destiny. — 2 Timothy 2:2", img:"https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Prayer%20for%20The%20Mantle%20of%20Mentorship.m4a"},
+  {num:"XXII", title:"Prayer for the Children of Offense", desc:"For the little ones whose hearts have been wounded by offense — this prayer covers them with the healing love of the Father and restores their innocence in Christ. — Matthew 18:6", img:"https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Prayer%20for%20the%20Children%20of%20Offense.m4a"},
+  {num:"XXIII", title:"Prayer to Show Us Your Power", desc:"Lord, reveal Your power in our midst — that signs, wonders, and miracles would once again confirm Your Word and draw all flesh to Your throne. — Acts 4:29–30", img:"https://images.unsplash.com/photo-1493244040629-496f6d136cc3?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Prayer%20to%20Show%20Us%20Your%20Power.m4a"},
+  {num:"XXIV", title:"THE Benediction", desc:"A closing blessing — the Lord bless thee and keep thee, make His face shine upon thee, and give thee peace. A holy sending forth into all He has prepared. — Numbers 6:24–26", img:"https://images.unsplash.com/photo-1490127252417-7c393f993ee4?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/THE%20Benediction.m4a"}
 ];
 const playSVG='<svg viewBox="0 0 16 16"><polygon points="3,1 15,8 3,15" fill="#c9a84c"/></svg>';
 const pauseSVG='<svg viewBox="0 0 16 16"><rect x="2" y="1" width="4" height="14" rx="1" fill="#c9a84c"/><rect x="10" y="1" width="4" height="14" rx="1" fill="#c9a84c"/></svg>';
@@ -530,7 +533,7 @@ prayers.forEach(function(p){gallery.appendChild(buildCard(p))});
 (function(){
   // Build playlist from only unlocked prayers
   var allPrayers=window.PRAYERS||[];
-  var playlist=allPrayers.filter(function(p){return p.num==="XIII"||p.num==="XIV"||p.num==="XV";});
+  var playlist=allPrayers.filter(function(p){return p.num==="XXII"||p.num==="XXIII"||p.num==="XXIV";});
 
   var idx=0;
   var looping=true;
