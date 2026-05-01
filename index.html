@@ -292,6 +292,7 @@ body{padding-bottom:88px;}
   .pl-scripture{display:none;}
 }
 </style>
+<base target="_blank">
 </head>
 <body>
 <div class="ticker-wrap">
@@ -302,7 +303,7 @@ body{padding-bottom:88px;}
       <span class="dot">✦</span>
       Weekly Updates
       <span class="dot">✦</span>
-      3 New Prayers: Prayer for the Children of Offense, Prayer to Show Us Your Power, THE Benediction
+      3 New Prayers: Don't Feel Like Praying, Prayer for The Scattered Sheep, War Cry for US Financial Institutions
       <span class="dot">✦</span>
       <span class="new-feat">New Feature</span>
       <em>Playlist</em>
@@ -317,7 +318,7 @@ body{padding-bottom:88px;}
       <span class="dot">✦</span>
       Weekly Updates
       <span class="dot">✦</span>
-3 New Prayers: Prayer for the Children of Offense, Prayer to Show Us Your Power, THE Benediction      <span class="dot">✦</span>
+3 New Prayers: Don't Feel Like Praying, Prayer for The Scattered Sheep, War Cry for US Financial Institutions      <span class="dot">✦</span>
       <span class="new-feat">New Feature</span>
       <em>Playlist</em>
       <span class="dot">✦</span>
@@ -429,7 +430,10 @@ const prayers=window.PRAYERS=[
   {num:"XXI", title:"Prayer for The Mantle of Mentorship", desc:"God is raising up spiritual fathers and mothers. This prayer is for the wisdom, patience, and grace to lead the next generation into their destiny. — 2 Timothy 2:2", img:"https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Prayer%20for%20The%20Mantle%20of%20Mentorship.m4a"},
   {num:"XXII", title:"Prayer for the Children of Offense", desc:"For the little ones whose hearts have been wounded by offense — this prayer covers them with the healing love of the Father and restores their innocence in Christ. — Matthew 18:6", img:"https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Prayer%20for%20the%20Children%20of%20Offense.m4a"},
   {num:"XXIII", title:"Prayer to Show Us Your Power", desc:"Lord, reveal Your power in our midst — that signs, wonders, and miracles would once again confirm Your Word and draw all flesh to Your throne. — Acts 4:29–30", img:"https://images.unsplash.com/photo-1493244040629-496f6d136cc3?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Prayer%20to%20Show%20Us%20Your%20Power.m4a"},
-  {num:"XXIV", title:"THE Benediction", desc:"A closing blessing — the Lord bless thee and keep thee, make His face shine upon thee, and give thee peace. A holy sending forth into all He has prepared. — Numbers 6:24–26", img:"https://images.unsplash.com/photo-1490127252417-7c393f993ee4?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/THE%20Benediction.m4a"}
+  {num:"XXIV", title:"THE Benediction", desc:"A closing blessing — the Lord bless thee and keep thee, make His face shine upon thee, and give thee peace. A holy sending forth into all He has prepared. — Numbers 6:24–26", img:"https://images.unsplash.com/photo-1490127252417-7c393f993ee4?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/THE%20Benediction.m4a"},
+  {num:"XXV", title:"Don't Feel Like Praying", desc:"For the days when the soul is weary and words feel far — this prayer meets you in your honesty and carries you to the One who understands. The Spirit himself intercedes for us with groans that words cannot express. — Romans 8:26", img:"https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Don't%20Feel%20Like%20Praying.m4a"},
+  {num:"XXVI", title:"Prayer for The Scattered Sheep", desc:"For those who have wandered, been driven away, or lost their way — this prayer calls the Shepherd to gather His own and lead them back to green pastures. — Ezekiel 34:12", img:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Prayer%20for%20The%20Scattered%20Sheep.m4a"},
+  {num:"XXVII", title:"War Cry for US Financial Institutions", desc:"A spiritual summons over the economic gates of the nation — declaring righteousness, divine strategy, and the fear of the Lord over banks, markets, and every seat of financial power. — Proverbs 11:1", img:"https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/War%20Cry%20for%20US%20Financial%20Institutions.m4a"}
 ];
 const playSVG='<svg viewBox="0 0 16 16"><polygon points="3,1 15,8 3,15" fill="#c9a84c"/></svg>';
 const pauseSVG='<svg viewBox="0 0 16 16"><rect x="2" y="1" width="4" height="14" rx="1" fill="#c9a84c"/><rect x="10" y="1" width="4" height="14" rx="1" fill="#c9a84c"/></svg>';
@@ -533,7 +537,7 @@ prayers.forEach(function(p){gallery.appendChild(buildCard(p))});
 (function(){
   // Build playlist from only unlocked prayers
   var allPrayers=window.PRAYERS||[];
-  var playlist=allPrayers.filter(function(p){return p.num==="XXII"||p.num==="XXIII"||p.num==="XXIV";});
+  var playlist=allPrayers.filter(function(p){return p.num==="XXV"||p.num==="XXVI"||p.num==="XXVII";});
 
   var idx=0;
   var looping=true;
