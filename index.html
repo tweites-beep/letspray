@@ -80,6 +80,15 @@ footer span{color:var(--gold);opacity:.5}
 .prayer-card.card-red .progress-bar-bg{background:rgba(255,255,255,.2);}
 .prayer-card.card-red .progress-bar-fill{background:linear-gradient(to right,#ff6b6b,#ffaaaa);}
 .prayer-card.card-red .time-row span{color:rgba(255,220,220,.7);}
+.share-btn{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;background:rgba(13,27,42,.75);border:1px solid rgba(201,168,76,.5);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:5;transition:background .2s ease,transform .15s ease;padding:0}
+.share-btn:hover{background:rgba(201,168,76,.2);transform:scale(1.08)}
+.share-btn svg{width:15px;height:15px;fill:var(--gold)}
+.share-toast{position:fixed;bottom:110px;left:50%;transform:translateX(-50%);background:rgba(13,27,42,.95);border:1px solid var(--gold);color:var(--ivory);padding:10px 20px;border-radius:4px;font-size:.8rem;letter-spacing:.05em;z-index:9999;opacity:0;transition:opacity .3s ease;pointer-events:none}
+.share-toast.show{opacity:1}
+.pl-share{background:transparent;border:1px solid rgba(201,168,76,.5);color:var(--gold);width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-left:8px;transition:background .2s ease}
+.pl-share:hover{background:rgba(201,168,76,.15)}
+.pl-share svg{width:15px;height:15px;fill:var(--gold)}
+.prayer-card.highlight-share{box-shadow:0 0 0 2px var(--gold),0 20px 50px rgba(201,168,76,.3);border-color:var(--gold)}
 
 .prayer-card:nth-child(1){animation-delay:.05s}.prayer-card:nth-child(2){animation-delay:.10s}.prayer-card:nth-child(3){animation-delay:.15s}
 .prayer-card:nth-child(4){animation-delay:.20s}.prayer-card:nth-child(5){animation-delay:.25s}.prayer-card:nth-child(6){animation-delay:.30s}
@@ -538,7 +547,7 @@ body{padding-bottom:88px;}
 <footer><span>&#10022;</span> &nbsp; Lift your voice &nbsp; <span>&#10022;</span></footer>
 <script>
 const prayers=window.PRAYERS=[
-  {num:"I",   title:"Victory Prayer Request", desc:"Began this day surrendered to the Power of The Lord — a prayer of thanksgiving, expectation, and trust as even in war, His mercies endureth forever. — Lamentations 3:22–23",              img:"https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Men%20Ought%20Always%20Pray%20(1).m4a"},
+  {num:"I",   title:"Victory Prayer Request", slug:"victory-prayer-request", desc:"Began this day surrendered to the Power of The Lord — a prayer of thanksgiving, expectation, and trust as even in war, His mercies endureth forever. — Lamentations 3:22–23",              img:"https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Men%20Ought%20Always%20Pray%20(1).m4a"},
   {num:"II",  title:"3 Day Declaration of War — Finances", desc:"The Word of God overrules all and provokes the heavens to moves within, upon, and on behalf of men. Speak the Word ONLY and be healed and made whole. — Isaiah 55:11", img:"https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Declare%20this%20over%20all%20for%203%20days.m4a"},
   {num:"III", title:"Prayer in Preparation for Fast", desc:"Jesus said some things require total surrender of body and the soul unto His Spirit. This is where we literally break our bodies to cleave with and align to The Word itself. — Matthew 17:21",                      img:"https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Day%20One%20Genesis%201%20Fasting%20and%20Prayer.m4a"},
   {num:"IV",  title:"Prayer for Whatsoever (Urgent)",    desc:"When the path is unclear, this prayer invites the Holy Spirit to illuminate every step, every decision, every calling. — Mark 11:24",                  img:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Prayer%20for%20Whatsoever%20(Urgency).m4a"},
@@ -594,8 +603,11 @@ function buildCard(p){
   const isLocked = p.audio.startsWith("YOUR_AUDIO");
   const lockHTML = isLocked ? '<div class="card-lock"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div>' : "";
   const hotlineHTML = p.hotline ? '<p style="color:#b79c55;font-size:.82rem;line-height:1.7;margin-top:10px;letter-spacing:.02em;font-style:italic;">If you are someone you love is being hurt at home contact to National Hotline for Domestic Violence<br>800-799-SAFE or Text &ldquo;START&rdquo; to 88788 Help is available 24/7</p>' : "";
+  const shareSVG='<svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>';
+  const shareBtnHTML = p.shareable ? '<button class="share-btn" aria-label="Share ' + p.title + '" onclick="sharePrayer(event,\'' + p.slug + '\',\'' + p.title.replace(/'/g,"\\'") + '\')">' + shareSVG + '</button>' : "";
   if(p.red)card.classList.add('card-red');
-  card.innerHTML=lockHTML+'<div class="card-image-wrap"><img class="card-image" src="'+p.img+'" alt="'+p.title+'" loading="lazy"/><span class="card-num">'+p.num+'</span></div><div class="card-body"><h2>'+p.title+'</h2><p>'+p.desc+'</p>'+hotlineHTML+'<div class="audio-row"><button class="play-btn" aria-label="Play '+p.title+'">'+playSVG+'</button><div class="progress-wrap"><div class="progress-bar-bg"><div class="progress-bar-fill"></div></div><div class="time-row"><span class="time-cur">0:00</span><span class="time-dur">--:--</span></div></div></div></div>';
+  if(p.slug)card.id='prayer-'+p.slug;
+  card.innerHTML=lockHTML+'<div class="card-image-wrap"><img class="card-image" src="'+p.img+'" alt="'+p.title+'" loading="lazy"/><span class="card-num">'+p.num+'</span>'+shareBtnHTML+'</div><div class="card-body"><h2>'+p.title+'</h2><p>'+p.desc+'</p>'+hotlineHTML+'<div class="audio-row"><button class="play-btn" aria-label="Play '+p.title+'">'+playSVG+'</button><div class="progress-wrap"><div class="progress-bar-bg"><div class="progress-bar-fill"></div></div><div class="time-row"><span class="time-cur">0:00</span><span class="time-dur">--:--</span></div></div></div></div>';
   const btn=card.querySelector(".play-btn"),fill=card.querySelector(".progress-bar-fill"),barBg=card.querySelector(".progress-bar-bg"),tc=card.querySelector(".time-cur"),td=card.querySelector(".time-dur"),audio=new Audio(p.audio);
   audio.addEventListener("loadedmetadata",function(){td.textContent=fmt(audio.duration)});
   audio.addEventListener("timeupdate",function(){if(!audio.duration)return;fill.style.width=(audio.currentTime/audio.duration*100)+"%";tc.textContent=fmt(audio.currentTime)});
@@ -688,6 +700,7 @@ prayers.forEach(function(p){gallery.appendChild(buildCard(p))});
   // Build playlist from only unlocked prayers
   var allPrayers=window.PRAYERS||[];
   var playlist=allPrayers.filter(function(p){return p.num==="XLIX"||p.num==="L"||p.num==="LI";});
+  if(window.TITHE_PRAYER){playlist.push(window.TITHE_PRAYER);}
 
   var idx=0;
   var looping=true;
@@ -757,10 +770,61 @@ prayers.forEach(function(p){gallery.appendChild(buildCard(p))});
     document.getElementById('plLoopBtn').classList.toggle('on',looping);
     document.getElementById('plLoopBtn').textContent=looping?'⟳ Loop':'⟳ Once';
   };
+  window.plShare=function(){
+    if(!playlist.length)return;
+    var p=playlist[idx];
+    var url='https://tweites-beep.github.io/letspray';
+    if(navigator.share){navigator.share({title:p.title,text:'Listen to "'+p.title+'" — The Prayer Wall',url:url}).catch(function(){});}
+    else{navigator.clipboard.writeText(url).then(function(){showToast('Link copied to clipboard');}).catch(function(){prompt('Copy this link:',url);});}
+  };
+  window.plLoadBySlug=function(slug){
+    for(var i=0;i<playlist.length;i++){
+      var s=(playlist[i].slug)||playlist[i].title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+      if(s===slug){load(i,true);document.getElementById('playlistBar').scrollIntoView({behavior:'smooth'});return true;}
+    }
+    return false;
+  };
 
-  // Load first track silently on page ready
-  if(playlist.length)load(0,false);
+  // Load first track but do not autoplay — the tithe popup takes precedence
+  if(playlist.length){
+    load(0,false);
+  }
+
 })();
+
+// ── SHARE FEATURE ──
+function showToast(msg){
+  var t=document.createElement('div');
+  t.className='share-toast';t.textContent=msg;
+  document.body.appendChild(t);
+  requestAnimationFrame(function(){t.classList.add('show');});
+  setTimeout(function(){t.classList.remove('show');setTimeout(function(){t.remove();},300);},2200);
+}
+function sharePrayer(e,slug,title){
+  e.stopPropagation();
+  var url='https://tweites-beep.github.io/letspray';
+  var shareData={title:title,text:'Please join me in "'+title+'" — The Prayer Wall',url:url};
+  if(navigator.share){navigator.share(shareData).catch(function(){});}
+  else{navigator.clipboard.writeText(url).then(function(){showToast('Prayer link copied');}).catch(function(){prompt('Copy this link:',url);});}
+}
+// Deep-link handler: open shared prayer on load
+function handlePrayerHash(){
+  var h=window.location.hash||'';
+  var m=h.match(/^#prayer\/(.+)$/);
+  if(m){
+    var el=document.getElementById('prayer-'+m[1]);
+    if(el){
+      el.scrollIntoView({behavior:'smooth',block:'center'});
+      el.classList.add('highlight-share');
+      setTimeout(function(){el.classList.remove('highlight-share');},4000);
+    }
+    return;
+  }
+  var pm=h.match(/^#playlist\/(.+)$/);
+  if(pm && window.plLoadBySlug){window.plLoadBySlug(pm[1]);}
+}
+window.addEventListener('load',function(){setTimeout(handlePrayerHash,400);});
+window.addEventListener('hashchange',handlePrayerHash);
 
 // ── PRAYER REQUESTS MODAL ──
 function closePrayerModal(){
@@ -788,6 +852,80 @@ function submitPrayer(e){
 function closeInviteModal(){
   document.getElementById('inviteModal').classList.remove('open');
 }
+</script>
+
+
+<style>
+.tithe-overlay{position:fixed;inset:0;background:rgba(10,8,20,.72);backdrop-filter:blur(14px) saturate(140%);z-index:10000;display:none;align-items:center;justify-content:center;padding:20px;animation:titheFade .35s ease}
+.tithe-overlay.open{display:flex}
+@keyframes titheFade{from{opacity:0}to{opacity:1}}
+.tithe-card{position:relative;width:100%;max-width:380px;background:linear-gradient(155deg,#4a3d5c 0%,#2e2540 55%,#1a1526 100%);border:1px solid rgba(201,168,76,.4);border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.04) inset;overflow:hidden;color:#f4efe4;font-family:'Cormorant Garamond',serif;animation:titheRise .45s cubic-bezier(.2,.9,.3,1)}
+
+@keyframes titheRise{from{transform:translateY(20px) scale(.97);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+.tithe-close{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.25);color:#f4efe4;font-size:20px;line-height:1;cursor:pointer;z-index:3;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.tithe-close:hover{background:rgba(201,168,76,.35)}
+.tithe-img-wrap{position:relative;height:200px;overflow:hidden}
+.tithe-img-wrap img{width:100%;height:100%;object-fit:cover;filter:saturate(.85) contrast(.95)}
+.tithe-img-wrap::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(46,37,64,0) 45%,rgba(26,21,38,.95) 100%)}
+
+.tithe-num{position:absolute;top:14px;left:14px;font-family:'Cinzel',serif;font-size:1rem;letter-spacing:.2em;color:#e6d9b8;z-index:2;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+.tithe-body{padding:20px 22px 22px}
+.tithe-body h2{font-family:'Cinzel',serif;font-size:1.35rem;letter-spacing:.06em;margin:0 0 10px;color:#f2ead4;line-height:1.25}
+.tithe-body p{font-size:.95rem;line-height:1.55;color:rgba(244,239,228,.85);margin:0 0 16px}
+.tithe-audio-row{display:flex;align-items:center;gap:12px;padding-top:14px;border-top:1px solid rgba(255,255,255,.15)}
+.tithe-play{width:44px;height:44px;border-radius:50%;border:1px solid rgba(230,217,184,.7);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0}
+.tithe-play:hover{background:rgba(230,217,184,.15)}
+.tithe-play svg{width:16px;height:16px}
+.tithe-progress{flex:1}
+.tithe-bar-bg{height:4px;background:rgba(255,255,255,.2);border-radius:2px;cursor:pointer;overflow:hidden}
+.tithe-bar-fill{height:100%;width:0%;background:linear-gradient(to right,#e6d9b8,#c9a84c);transition:width .1s linear}
+.tithe-times{display:flex;justify-content:space-between;font-size:.72rem;color:rgba(244,239,228,.6);margin-top:6px;letter-spacing:.05em}
+</style>
+
+<div class="tithe-overlay" id="titheModal" onclick="if(event.target===this)closeTitheModal()">
+  <div class="tithe-card">
+    <button class="tithe-close" onclick="closeTitheModal()" aria-label="Close">&times;</button>
+    <div class="tithe-img-wrap">
+      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80" alt="Prayer and Decree I AM THE TITHE"/>
+      <span class="tithe-num">NEW &middot; DECREE</span>
+    </div>
+    <div class="tithe-body">
+      <h2>Prayer and Decree &mdash; I AM THE TITHE</h2>
+      <p>A holy declaration of identity and consecration &mdash; recognizing that we ourselves are the offering, wholly set apart unto God. Speak this decree and step into the fullness of covenant belonging. &mdash; Romans 12:1</p>
+      <div class="tithe-audio-row">
+        <button class="tithe-play" id="tithePlay" onclick="titheToggle()" aria-label="Play">
+          <svg viewBox="0 0 16 16"><polygon points="3,1 15,8 3,15" fill="#e6d9b8"/></svg>
+        </button>
+        <div class="tithe-progress">
+          <div class="tithe-bar-bg" onclick="titheSeek(event)"><div class="tithe-bar-fill" id="titheFill"></div></div>
+          <div class="tithe-times"><span id="titheCur">0:00</span><span id="titheDur">--:--</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.TITHE_PRAYER={num:"LII",title:"Prayer and Decree — I AM THE TITHE",desc:"A holy declaration of identity and consecration — recognizing that we ourselves are the offering, wholly set apart unto God. — Romans 12:1",img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80",audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Prayer%20and%20Decree%20I%20AM%20THE%20TITHE.m4a"};
+(function(){
+  var audio=new Audio(window.TITHE_PRAYER.audio);
+  var btn=document.getElementById('tithePlay');
+  var fill=document.getElementById('titheFill');
+  var cur=document.getElementById('titheCur');
+  var dur=document.getElementById('titheDur');
+  var playSVG='<svg viewBox="0 0 16 16"><polygon points="3,1 15,8 3,15" fill="#e6d9b8"/></svg>';
+  var pauseSVG='<svg viewBox="0 0 16 16"><rect x="2" y="1" width="4" height="14" rx="1" fill="#e6d9b8"/><rect x="10" y="1" width="4" height="14" rx="1" fill="#e6d9b8"/></svg>';
+  function fmt(s){if(isNaN(s))return'--:--';var m=Math.floor(s/60),x=Math.floor(s%60);return m+':'+(x<10?'0':'')+x;}
+  audio.addEventListener('loadedmetadata',function(){dur.textContent=fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(!audio.duration)return;fill.style.width=(audio.currentTime/audio.duration*100)+'%';cur.textContent=fmt(audio.currentTime);});
+  audio.addEventListener('ended',function(){btn.innerHTML=playSVG;fill.style.width='0%';cur.textContent='0:00';});
+  window.titheToggle=function(){if(audio.paused){audio.play().catch(function(){});btn.innerHTML=pauseSVG;}else{audio.pause();btn.innerHTML=playSVG;}};
+  window.titheSeek=function(e){if(!audio.duration)return;var r=e.currentTarget.getBoundingClientRect();audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration;};
+  window.closeTitheModal=function(){audio.pause();btn.innerHTML=playSVG;document.getElementById('titheModal').classList.remove('open');};
+  window.openTitheModal=function(){document.getElementById('titheModal').classList.add('open');};
+  window.addEventListener('load',function(){setTimeout(function(){window.openTitheModal();},1200);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')window.closeTitheModal();});
+})();
 </script>
 
 </body>
