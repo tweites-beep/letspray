@@ -12,7 +12,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="The Prayer Wall" />
 <meta name="twitter:description" content="A collection of prayers to draw you closer to the Father through Christ Jesus." />
-<meta name="twitter:image" content="https://your-image-url.com/prayer-wall-preview.jpg" />
+<meta name="twitter:image" content="https://tweites-beep.github.io/letspray/lving%20off%20the%20wall.png" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='82' font-size='85' fill='%23c9a84c'>✦</text></svg>"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
@@ -351,7 +351,7 @@ body{padding-bottom:88px;}
       <span class="dot">✦</span>
       Weekly Updates
       <span class="dot">✦</span>
-      3 New Prayers: Prayer - My Spirit Is Greived, Prayer - Because Jesus Said It, Prayer - Unbreak Their Hearts<span class="dot">✦</span>
+      3 New Prayers: Prayer We Want for Nothing, Prayer Let God Be God, Prayer to Remind God<span class="dot">✦</span>
       <span class="new-feat">New Feature</span>
       <em>Playlist</em> &mdash; You&rsquo;re Invited to Our Zoom &amp; Prayer Requests
       <span class="dot">✦</span>
@@ -365,7 +365,7 @@ body{padding-bottom:88px;}
       <span class="dot">✦</span>
       Weekly Updates
       <span class="dot">✦</span>
-3 New Prayers: Prayer - My Spirit Is Greived, Prayer - Because Jesus Said It, Prayer - Unbreak Their Hearts<span class="dot">✦</span>
+3 New Prayers: Prayer We Want for Nothing, Prayer Let God Be God, Prayer to Remind God<span class="dot">✦</span>
       <span class="new-feat">New Feature</span>
       <em>Playlist</em> &mdash; You&rsquo;re Invited to Our Zoom &amp; Prayer Requests
       <span class="dot">✦</span>
@@ -406,9 +406,9 @@ body{padding-bottom:88px;}
       <div class="updates-label">Weekly Updates</div>
       <div class="updates-title">3 New Prayers This Week &mdash; Just Press Play Button on the Playlist</div>
       <ul class="updates-list">
-        <li>Prayer - My Spirit Is Greived</li>
-        <li>Prayer - Because Jesus Said It</li>
-        <li>Prayer - Unbreak Their Hearts</li>
+        <li>Prayer We Want for Nothing</li>
+        <li>Prayer Let God Be God</li>
+        <li>Prayer to Remind God</li>
       </ul>
     </div>
   </div>
@@ -604,6 +604,9 @@ const prayers=window.PRAYERS=[
   {num:"LXI", title:"Prayer - My Spirit Is Greived", slug:"my-spirit-is-greived", desc:"A prayer of tender lament and holy comfort — when the spirit is grieved by the weight of the world, the Spirit of the Lord draws near to heal, restore, and renew. He is near to the brokenhearted. — Psalm 34:18", img:"https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&q=80", audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Prayer%20-%20My%20Spirit%20Is%20Greived.m4a"},
   {num:"LXII", title:"Prayer - Because Jesus Said It", slug:"because-jesus-said-it", desc:"A prayer anchored solely on the authority of Jesus — His word is the final word, His promise is the guarantee, and His name is the reason we believe. Because He said it, that settles it. — Matthew 24:35", img:"https://images.unsplash.com/photo-1494500764479-0c8f2919a3d8?w=600&q=80", audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Prayer%20-%20Because%20Jesus%20Said%20It.m4a"},
   {num:"LXIII", title:"Prayer - Unbreak Their Hearts", slug:"unbreak-their-hearts", desc:"A prayer for the broken places in every heart — asking the Father to mend what life has shattered, heal what pain has hardened, and make whole every wound that others cannot see. — Psalm 147:3", img:"https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=600&q=80", audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Prayer%20-%20Unbreak%20Their%20Hearts.m4a"},
+  {num:"LXIV", title:"Prayer We Want for Nothing", slug:"we-want-for-nothing", desc:"A prayer of contentment and trust — declaring that in Christ we lack no good thing, and every need is met by the Father who knows how to give. — Psalm 23:1", img:"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=600&q=80", audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Prayer%20We%20Want%20for%20Nothing.m4a"},
+  {num:"LXV", title:"Prayer Let God Be God", slug:"let-god-be-god", desc:"A prayer of release and reverence — stepping aside so the Lord can be Lord, allowing His sovereignty to rule every situation that concerns us. — Psalm 46:10", img:"https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=600&q=80", audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Prayer%20Let%20God%20Be%20God.m4a"},
+  {num:"LXVI", title:"Prayer to Remind God", slug:"to-remind-god", desc:"A prayer of bold remembrance — standing on His promises and reminding the Lord of His Word, His covenant, and His faithfulness to every generation. — Isaiah 62:6–7", img:"https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=600&q=80", audio:"https://raw.githubusercontent.com/tweites-beep/letspray/main/Prayer%20to%20Remind%20God.m4a"},
 ];
 const playSVG='<svg viewBox="0 0 16 16"><polygon points="3,1 15,8 3,15" fill="#c9a84c"/></svg>';
 const pauseSVG='<svg viewBox="0 0 16 16"><rect x="2" y="1" width="4" height="14" rx="1" fill="#c9a84c"/><rect x="10" y="1" width="4" height="14" rx="1" fill="#c9a84c"/></svg>';
@@ -711,7 +714,7 @@ prayers.forEach(function(p){gallery.appendChild(buildCard(p))});
 (function(){
   // Build playlist from only unlocked prayers
   var allPrayers=window.PRAYERS||[];
-  var playlist=allPrayers.filter(function(p){return ["LXI","LXII","LXIII"].indexOf(p.num)!==-1;});
+  var playlist=allPrayers.filter(function(p){return ["LXIV","LXV","LXVI"].indexOf(p.num)!==-1;});
   if(window.TITHE_PRAYER){playlist.push(window.TITHE_PRAYER);}
 
   var idx=0;
